@@ -162,6 +162,8 @@ class SignupComponent extends Component {
                                         <input type="submit" id="signupbtn" className="btn btn-success" value="Register"></input>
                                         {/* <button className="btn btn-success" onClick={this.registerCustomer}>Register</button> */}
                                         <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
+                                        <br></br>
+                                        <br></br>
                                     </form>
                                 </div>
                             </div>

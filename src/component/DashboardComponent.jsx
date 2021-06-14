@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import '../App.css';
-import HeaderComponent from './HeaderComponent';
+//import HeaderComponent from './HeaderComponent';
 // import CustomerService from '../service/CustomerService';
 import FooterComponent from './FooterComponent';
+import NavigationComponent from './NavigationComponent';
 
 class DashboardComponent extends Component{
     constructor(props){
@@ -13,16 +14,15 @@ class DashboardComponent extends Component{
     }
     componentDidMount(){
         if(this.state.userId==null){
-            console.log("abc");
             this.props.history.push('/');
         }
     }
     render(){
         return(
             <div>
-                <div className="App-header">
-                    <HeaderComponent></HeaderComponent>
-                </div>  
+                <div>
+                    <NavigationComponent></NavigationComponent>
+                </div>
                 Welcome {this.state.userId}
                 <div className="App-footer">
                     <FooterComponent></FooterComponent>
