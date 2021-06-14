@@ -9,19 +9,12 @@ class HeaderComponent extends Component {
         }
     }
 
-    logoutCustomer= (event) => {
-        window.localStorage.clear();
-        
-    }
 
     render() {
         return (
             <div>
                 <header>
-                    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <a href="/" className="navbar-brand">Dry Cleaning App</a>
-                    <button className="btn btn-success" onClick={this.logoutCustomer}><a href="/">Logout</a></button>
-                    </nav>
+                    <a href="/" >Dry Cleaning App</a>
                 </header>
             </div>
         )

@@ -25,24 +25,27 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 10vh;
+  min-height: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(5px + 2vmin);
+  font-size: calc(10px + 2vmin);
   color: white;
+  padding: 10px 10px 0px 10px;
+  top: 0;
+
 }
 
 .App-footer {
-  background-color: #282c34;
-  min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(5px + 2vmin);
+  position: fixed;
+  padding: 10px 10px 0px 10px;
+  bottom: 0;
+  width: 83%;
+  /* Height of the footer*/ 
+  height: 25px;
   color: white;
+  background: #282c34;
 }
 .error{
   color:red;
