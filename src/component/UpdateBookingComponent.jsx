@@ -8,26 +8,26 @@ import NavigationComponent from './NavigationComponent';
 // import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 // import { Link } from 'react-router-dom';
 
-class AddBookingComponent extends Component{
+class UpdateBookingComponent extends Component{
     constructor(props){
         super(props)
         this.state={
+            bookingId:this.props.match.params.id,
             bookingDate:'',
             bookingTime:'',
             serviceType:'',
             customerDetails:''
         }
-        
     }
-    addBooking=(event)=>{
-        event.preventDefault();
-        let booking = {bookingId:Math.floor(Math.random()*1000),bookingDate:this.state.bookingDate,
-        bookingTime:this.state.bookingTime,
-        serviceType:this.state.serviceType,
-        customerDetails:this.state.customerDetails};
-        BookingService.addBooking(booking);
-        this.props.history.push('/booking');
-        this.props.history.go();
+    componentDidMount(){
+        let userId=window.localStorage.getItem("userId");
+        CustomerService.validateUserId(userId).then(res=>{
+            this.setState({customerDetails:res.data});})
+        BookingService.getBookingbyId(this.state.bookingId).then(res=>{
+            this.setState({bookingDate:res.data.bookingDate});
+            this.setState({bookingTime:res.data.bookingTime});
+            this.setState({serviceType:res.data.serviceType});
+        })
     }
     cancel(){
         this.props.history.push('/booking');
@@ -41,14 +41,15 @@ class AddBookingComponent extends Component{
     changeServiceType=(event)=>{
         this.setState({serviceType:event.target.value});
     }
-    componentDidMount(){
-        let userId=window.localStorage.getItem("userId");
-        if(userId==null){
-            this.props.history.push('/');
-        }
-        CustomerService.validateUserId(userId).then(res=>{
-            this.setState({customerDetails:res.data});
-        })
+    updateBooking=(event)=>{
+        event.preventDefault();
+        let booking = {bookingId:this.state.bookingId,bookingDate:this.state.bookingDate,
+        bookingTime:this.state.bookingTime,
+        serviceType:this.state.serviceType,
+        customerDetails:this.state.customerDetails};
+        BookingService.updateBooking(booking);
+        this.props.history.push('/booking');
+        this.props.history.go();
     }
     render(){
        
@@ -62,7 +63,7 @@ class AddBookingComponent extends Component{
                             <div className = "card col-md-6 offset-md-3 offset-md-3">
                                 Add Booking Page
                                 <div className = "card-body">
-                                    <form method="post" onSubmit={this.addBooking}>
+                                    <form method="post" onSubmit={this.updateBooking}>
                                     <div className = "form-group">
                                             <label>Booking Date: </label>
                                             <input placeholder="Booking Date" name="Booking Date"  className="form-control" onChange=
@@ -81,7 +82,7 @@ class AddBookingComponent extends Component{
                                                 value={this.state.serviceType} onChange={this.changeServiceType} required/>
                                         </div>
                                        
-                                        <input type="submit" id="addbookingbtn" className="btn btn-success" value="Add"></input>
+                                        <input type="submit" id="updatebtn"  className="btn btn-success" value="Update"></input>
                                         {/* <button className="btn btn-success" onClick={this.registerCustomer}>Register</button> */}
                                         <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
                                         <br></br>
@@ -96,4 +97,4 @@ class AddBookingComponent extends Component{
         )
     }
 }
-export default AddBookingComponent;
+export default UpdateBookingComponent

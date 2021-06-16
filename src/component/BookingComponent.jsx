@@ -14,7 +14,6 @@ class BookingComponent extends Component{
             userId:window.localStorage.getItem("userId"),
             booking:[]
         }
-        
     }
     componentDidMount(){
         if(this.state.userId==null){
@@ -23,7 +22,13 @@ class BookingComponent extends Component{
         BookingService.getBookings(this.state.userId).then(res=>{
             this.setState({booking:res.data});
         });
-        console.log(this.state.booking);
+        this.forceUpdate();
+    }
+    deleteBooking=(bookingId)=>{
+      BookingService.deleteBooking(bookingId).then(res=>{
+        this.setState({booking: this.state.booking.filter((item) => item.bookingId !== bookingId)});
+      });
+      this.props.history.push('/booking');
     }
 
     render(){
@@ -35,8 +40,8 @@ class BookingComponent extends Component{
               <td>{b.serviceType}</td>
               <td>
                 <ButtonGroup>
-                  <Button size="sm" color="primary" tag={Link} to={"/booking/" + b.bookingId}>Edit</Button>
-                  <Button size="sm" color="danger" onClick={() => this.remove(b.bookingId)}>Delete</Button>
+                  <Button size="sm" color="primary" tag={Link} to={"/booking/" + b.bookingId}>Update</Button>
+                  <Button size="sm" color="danger" onClick={()=>this.deleteBooking(b.bookingId)}>Delete</Button>
                 </ButtonGroup>
               </td>
             </tr>
