@@ -6,6 +6,10 @@ import LoginComponent from './component/LoginComponent';
 import DashboardComponent from './component/DashboardComponent';
 import BookingComponent from './component/BookingComponent';
 import AddBookingComponent from './component/AddBookingComponent'
+import UpdateBookingComponent from './component/UpdateBookingComponent';
+import CustomerItemComponent from './component/CustomerItemComponent';
+import AddItemComponent from './component/AddItemComponent';
+import UpdateItemComponent from './component/UpdateItemComponent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
@@ -20,6 +24,10 @@ function App() {
                           <Route path = "/dashboard" exact component = {DashboardComponent}></Route>
                           <Route path = "/booking" exact component = {BookingComponent}></Route>
                           <Route path = "/booking/add" exact component = {AddBookingComponent}></Route>
+                          <Route path = "/booking/:id" exact component = {UpdateBookingComponent}></Route>
+                          <Route path = "/customerItem" exact component = {CustomerItemComponent}></Route>
+                          <Route path = "/customerItem/add" exact component = {AddItemComponent}></Route>
+                          <Route path = "/customerItem/:id" exact component = {UpdateItemComponent}></Route>
                     </Switch>
                 </div>
               
