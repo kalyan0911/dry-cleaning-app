@@ -43,6 +43,7 @@ class CustomerItemComponent extends Component{
               <td>{c.description}</td>
               <td>
                 <ButtonGroup>
+                <Button size="sm" color="secondary" tag={Link} to={"/booking/add/"+c.itemId}>Book</Button>
                   <Button size="sm" color="primary" tag={Link} to={"/CustomerItem/" + c.itemId}>Update</Button>
                   <Button size="sm" color="danger" onClick={()=>this.deleteItems(c.itemId)}>Delete</Button>
                 </ButtonGroup>

@@ -21,9 +21,9 @@ export class NavigationComponent extends Component {
                             <Nav className="ml-auto">
                                 <Nav.Link href='/dashboard'>Home</Nav.Link>
                                 <Nav.Link href='/booking'>Booking</Nav.Link>
-                                <Nav.Link href='/customerItem'>CustomerItem</Nav.Link>
+                                <Nav.Link href='/customerItem'> CustomerItem</Nav.Link>
                                 <Nav.Link href='/order'>Order</Nav.Link>
-                                <Nav.Link href="/payment">PaymentOptions</Nav.Link>
+                                <Nav.Link href="/payment">Payments</Nav.Link>
                                 <Nav.Link href="/profile">Profile</Nav.Link>
                                 {/* <Link to='footer' className="contact">Contact Us</Link> */}
                                 <Nav.Link href="/" onClick={this.logoutCustomer}>Logout</Nav.Link>

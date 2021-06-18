@@ -39,7 +39,7 @@ class UpdateComponent extends Component{
         this.props.history.go();
     }
     cancel(){
-        this.props.history.push('/booking');
+        this.props.history.push('/customerItem');
     }
     changeName=(event)=>{
         this.setState({name:event.target.value});
@@ -64,7 +64,7 @@ class UpdateComponent extends Component{
         if(userId==null){
             this.props.history.push('/');
         }
-        CustomerService.validateUserId(userId).then(res=>{
+        CustomerService.getCustomer(userId).then(res=>{
             this.setState({customer:res.data});
         })
         CustomerItemService.getItembyId(this.state.itemId).then(res=>{
@@ -86,7 +86,7 @@ class UpdateComponent extends Component{
                  <div className = "container">
                         <div className = "row">
                             <div className = "card col-md-6 offset-md-3 offset-md-3">
-                                Add Booking Page
+                                <h1>Update Item</h1>
                                 <div className = "card-body">
                                     <form method="post" onSubmit={this.updateItem}>
                                     <div className = "form-group">
@@ -108,7 +108,7 @@ class UpdateComponent extends Component{
                                         </div>
                                         <div className = "form-group">
                                             <label> Quantity: </label>
-                                            <input placeholder="Quantity" name="Quantity" className="form-control" 
+                                            <input placeholder="Quantity" type="number" name="Quantity" className="form-control" 
                                                 value={this.state.quantity} onChange={this.changeQuantity} required/>
                                         </div>
                                         <div className = "form-group">
@@ -121,7 +121,7 @@ class UpdateComponent extends Component{
                                             <input placeholder="Description" name="Description" className="form-control" 
                                                 value={this.state.description} onChange={this.changeDescription} required/>
                                         </div>
-                                       
+                                        <br></br>
                                         <input type="submit" id="updateItem" className="btn btn-success" value="Update"></input>
                                         {/* <button className="btn btn-success" onClick={this.registerCustomer}>Register</button> */}
                                         <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>

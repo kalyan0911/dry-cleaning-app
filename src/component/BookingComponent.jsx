@@ -12,7 +12,8 @@ class BookingComponent extends Component{
         super(props)
         this.state = {
             userId:window.localStorage.getItem("userId"),
-            booking:[]
+            booking:[],
+            customerItemName:''
         }
     }
     componentDidMount(){
@@ -22,7 +23,6 @@ class BookingComponent extends Component{
         BookingService.getBookings(this.state.userId).then(res=>{
             this.setState({booking:res.data});
         });
-        this.forceUpdate();
     }
     deleteBooking=(bookingId)=>{
       BookingService.deleteBooking(bookingId).then(res=>{
@@ -35,11 +35,13 @@ class BookingComponent extends Component{
         const bookingList = this.state.booking.map(b => {
             return <tr key={b.bookingId}>
             <td>{b.bookingId}</td>
+            <td>{b.customerItem.name}</td>
               <td style={{whiteSpace: 'nowrap'}}>{b.bookingDate}</td>
               <td style={{whiteSpace: 'nowrap'}}>{b.bookingTime}</td>
               <td>{b.serviceType}</td>
               <td>
                 <ButtonGroup>
+                  <Button size="sm" color="secondary" tag={Link} to={"/order/add/" + b.bookingId}>Order</Button>
                   <Button size="sm" color="primary" tag={Link} to={"/booking/" + b.bookingId}>Update</Button>
                   <Button size="sm" color="danger" onClick={()=>this.deleteBooking(b.bookingId)}>Delete</Button>
                 </ButtonGroup>
@@ -54,14 +56,13 @@ class BookingComponent extends Component{
                     <NavigationComponent></NavigationComponent>
                 </div>
                 <Container fluid>
-          <div className="float-right">
-            <Button color="success" tag={Link} to="/booking/add">Add Booking</Button>
-          </div>
+          
           <h3>Booking List</h3>
           <Table className="mt-4">
             <thead>
               <tr>
                 <th width="20%">Booking Id</th>
+                <th width="20%">Customer Item</th>
                 <th width="20%">Booking Date</th>
                 <th width="10%">Booking Time</th>
                 <th>Service Type</th>

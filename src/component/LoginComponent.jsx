@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import '../App.css';
-import HeaderComponent from './HeaderComponent';
+//import HeaderComponent from './HeaderComponent';
 import CustomerService from '../service/CustomerService';
 import FooterComponent from './FooterComponent';
+import NavigationComponent from './NavigationComponent';
 
 class LoginComponent extends Component {
     constructor(props){
@@ -36,13 +37,16 @@ class LoginComponent extends Component {
     render(){
         return(
             <div>
-                <div className="App-header">
+                {/* <div className="App-header">
                     <HeaderComponent></HeaderComponent>
+                </div> */}
+                <div>
+                    <NavigationComponent></NavigationComponent>
                 </div>
                 <div className = "container">
                         <div className = "row">
                             <div className = "card col-md-6 offset-md-3 offset-md-3">
-                                Registration Page
+                                <h1>Login</h1>
                                 <div className = "card-body">
                                     <form>
                                         <div className = "form-group">
@@ -51,8 +55,8 @@ class LoginComponent extends Component {
                                                 value={this.state.userId} onChange={this.changeUserIdHandler}/>
                                         </div>
                                         <div className = "form-group">
-                                            <label> Password </label>
-                                            <input placeholder="Password" name="Password" className="form-control" 
+                                            <label> Password: </label>
+                                            <input placeholder="Password" type="password" name="Password" className="form-control" 
                                                 value={this.state.password} onChange={this.changePasswordHandler}/>
                                         </div>
                                         <div className="error"> {this.state.error}</div>

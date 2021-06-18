@@ -23,7 +23,7 @@ class DashboardComponent extends Component{
                 <div>
                     <NavigationComponent></NavigationComponent>
                 </div>
-                Welcome {this.state.userId}
+                <h1 style={{color:"blue"}}>Welcome {this.state.userId}</h1>
                 <div className="App-footer">
                     <FooterComponent></FooterComponent>
                 </div>
