@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import '../App.css';
-import HeaderComponent from './HeaderComponent';
+import NavigationComponent from './NavigationComponent';
 import CustomerService from '../service/CustomerService';
 import FooterComponent from './FooterComponent';
 
-class SignupComponent extends Component {
+class UpdateCustomerComponent extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            userId:'',
+            userId:window.localStorage.getItem('userId'),
             name: '',
             email: '',
             contactNo: '',
@@ -21,15 +21,12 @@ class SignupComponent extends Component {
             area:'',
             city:'',
             state:'',
-            pincode:'',
-            error:''
+            pincode:''
         }
         
         
     }
-    changeUserIdHandler=(event) => {
-        this.setState({userId: event.target.value});
-    }
+
     changeNameHandler= (event) => {
         this.setState({name: event.target.value});
     }
@@ -41,9 +38,6 @@ class SignupComponent extends Component {
     }
     changeDobHandler= (event) => {
         this.setState({dob: event.target.value});
-    }
-    changePasswordHandler= (event) => {
-        this.setState({password: event.target.value});
     }
     changeDoorHandler= (event) => {
         this.setState({doorNo: event.target.value});
@@ -63,6 +57,26 @@ class SignupComponent extends Component {
     changePincodeHandler= (event) => {
         this.setState({pincode: event.target.value});
     }
+
+    componentDidMount(){
+        if(this.state.userId==null){
+            this.props.history.push('/');
+        }
+        CustomerService.getCustomer(this.state.userId).then(res=>{
+            this.setState({name:res.data.name});
+            this.setState({email:res.data.email});
+            this.setState({contactNo:res.data.contactNo});
+            this.setState({dob:res.data.dob});
+            this.setState({password:res.data.password});
+            this.setState({doorNo:res.data.address.doorNo});
+            this.setState({street:res.data.address.street});
+            this.setState({area:res.data.address.area});
+            this.setState({city:res.data.address.city});
+            this.setState({state:res.data.address.state});
+            this.setState({pincode:res.data.address.pincode});
+
+        });
+    }
     validateUserId=(event) => {
         event.preventDefault();
         this.setState({userId: event.target.value});
@@ -72,37 +86,29 @@ class SignupComponent extends Component {
             this.setState({error:''});
         })
     }
-    registerCustomer= (event) => {
+    updateCustomer= (event) => {
         event.preventDefault();
         let customer={name:this.state.name,email:this.state.email,contactNo:this.state.contactNo,
         dob:this.state.dob,password:this.state.password,userId:this.state.userId,address:{doorNo:this.state.doorNo,
         street:this.state.street, area:this.state.area, city:this.state.city,state:this.state.state,
         pincode:this.state.pincode}};
-        console.log(JSON.stringify(customer));
-        CustomerService.registerCustomer(customer).then(res=>{this.props.history.push('/');});
+        CustomerService.updateCustomer(customer).then(res=>{this.props.history.push('/profile');});
     }
     cancel(){
-        this.props.history.push('/');
+        this.props.history.push('/profile');
     }
     render() {
       return(
         <div>
-        <div className="App-header">
-            <HeaderComponent></HeaderComponent>
-        </div>  
+        <div>
+            <NavigationComponent></NavigationComponent>
+        </div> 
         <div className = "container">
                         <div className = "row">
                             <div className = "card col-md-6 offset-md-3 offset-md-3">
-                                Registration Page
+                                <h1>Update Profile</h1>
                                 <div className = "card-body">
-                                    <form method="post" onSubmit={this.registerCustomer}>
-                                    <div className = "form-group">
-                                            <label>UserId: </label>
-                                            <input placeholder="UserId" name="UserId"  className="form-control" onChange=
-                                            {this.changeUserIdHandler}
-                                             onBlur={this.validateUserId} required/>
-                                        </div>
-                                        <div className="error">{this.state.error}</div>
+                                    <form method="post" onSubmit={this.updateCustomer}>
                                         <div className = "form-group">
                                             <label>Name: </label>
                                             <input placeholder="Name" name="Name"  className="form-control" 
@@ -122,11 +128,6 @@ class SignupComponent extends Component {
                                             <label> DOB(yyyy-mm-dd): </label>
                                             <input placeholder="DOB" name="DOB" type="date"  className="form-control" 
                                                 value={this.state.dob} onChange={this.changeDobHandler} required/>
-                                        </div>
-                                        <div className = "form-group">
-                                            <label> Password: </label>
-                                            <input placeholder="Password" type="password" name="Password"  className="form-control" 
-                                                value={this.state.password} onChange={this.changePasswordHandler}required/>
                                         </div>
                                         <div className = "form-group">
                                             <label> Door Number: </label>
@@ -159,7 +160,7 @@ class SignupComponent extends Component {
                                                 value={this.state.pincode} onChange={this.changePincodeHandler} required/>
                                         </div>
                                         <br></br>
-                                        <input type="submit" id="signupbtn" className="btn btn-success" value="Register"></input>
+                                        <input type="submit" id="UpdateProfileBtn" className="btn btn-success" value="Update"></input>
                                         {/* <button className="btn btn-success" onClick={this.registerCustomer}>Register</button> */}
                                         <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
                                         <br></br>
@@ -174,4 +175,4 @@ class SignupComponent extends Component {
       );
     }
 }
-export default SignupComponent
+export default UpdateCustomerComponent;

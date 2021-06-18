@@ -10,8 +10,14 @@ class CustomerService {
     loginCustomer(user){
         return axios.post(EMPLOYEE_API_BASE_URL+'user/getsignin',user);
     }
-    validateUserId(userId){
+    getCustomer(userId){
         return axios.get(EMPLOYEE_API_BASE_URL+'customer/get/'+userId);
+    }
+    updateCustomer(customer){
+        return axios.put(EMPLOYEE_API_BASE_URL+'customer/update/'+customer.userId,customer);
+    }
+    changePassword(user){
+        return axios.put(EMPLOYEE_API_BASE_URL+'user/update/'+user.userId,user);
     }
 }
 export default new CustomerService()
