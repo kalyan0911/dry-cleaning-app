@@ -55,7 +55,7 @@ class CustomerComponent extends Component{
           <Table className="mt-4">
             <thead>
               <tr>
-                <td>User Name: <b>{this.state.customer.userId}</b></td>
+                <td>User ID: <b>{this.state.customer.userId}</b></td>
               </tr><tr>
                 <td> Name: <b>{this.state.customer.name}</b></td>
               </tr>

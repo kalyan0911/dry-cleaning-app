@@ -79,7 +79,10 @@ class SignupComponent extends Component {
         street:this.state.street, area:this.state.area, city:this.state.city,state:this.state.state,
         pincode:this.state.pincode}};
         console.log(JSON.stringify(customer));
-        CustomerService.registerCustomer(customer).then(res=>{this.props.history.push('/');});
+        CustomerService.registerCustomer(customer).then(res=>{
+            window.localStorage.setItem('userId',(res.data.userId));
+            this.props.history.push('/dashboard');
+        });
     }
     cancel(){
         this.props.history.push('/');
@@ -115,12 +118,14 @@ class SignupComponent extends Component {
                                         </div>
                                         <div className = "form-group">
                                             <label> Contact Number: </label>
-                                            <input placeholder="Contact Number" type="number" name="contact" className="form-control" 
+                                            <input placeholder="Contact Number" pattern="[7-9]{1}[0-9]{9}" 
+                                            title="Phone number with 7-9 and remaing 9 digit with 0-9"
+                                             name="contact" className="form-control" 
                                                 value={this.state.contactNo} onChange={this.changeContactHandler} required/>
                                         </div>
                                         <div className = "form-group">
-                                            <label> DOB(yyyy-mm-dd): </label>
-                                            <input placeholder="DOB" name="DOB" type="date"  className="form-control" 
+                                            <label> DOB: </label>
+                                            <input placeholder="DOB" name="DOB" type="date" max="2021-12-31" className="form-control" 
                                                 value={this.state.dob} onChange={this.changeDobHandler} required/>
                                         </div>
                                         <div className = "form-group">
